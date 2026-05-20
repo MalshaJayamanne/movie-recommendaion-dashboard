@@ -81,6 +81,12 @@ document.addEventListener("DOMContentLoaded", async () => {
             viewSubtitle.textContent = meta.subtitle;
         }
 
+        // Hide search bar on analytics page — not relevant there
+        const headerSearch = document.querySelector(".header-search");
+        if (headerSearch) {
+            headerSearch.style.display = targetViewId === "analytics-view" ? "none" : "";
+        }
+
         // Initialize charts if entering analytics view
         if (targetViewId === "analytics-view" && !chartsInitialized) {
             loadAndRenderAnalytics();

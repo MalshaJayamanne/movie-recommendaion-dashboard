@@ -12,6 +12,7 @@ __pycache__/
 .env
 
 backend/data/similarity.pkl
+backend/data/screen rec/
 backend/data/poster_cache.json
 backend/data/movies_cleaned.csv
 

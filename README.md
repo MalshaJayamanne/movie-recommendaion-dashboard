@@ -4,6 +4,26 @@ MovieMind AI is a full-stack movie recommendation and analytics dashboard. Utili
 
 ---
 
+## Screenshots
+
+### Home Page
+![alt text](image.png)
+
+### Recommendation Page
+![alt text](image-4.png)
+
+![alt text](image-1.png)
+
+![alt text](image-2.png)
+
+![alt text](image-3.png)
+
+### Analytics Page
+
+![alt text](image-5.png)
+
+![alt text](image-6.png)
+
 ## 🚀 Key Features
 
 *   **Cosine Similarity Recommendation Engine**: Machine learning model analyzing movie features (genres, keywords, cast, crew, and overview) with Porter Stemming and Count Vectorization to recommend similar movies.
