@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieMind AI — Dashboard & Analytics</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Main Style Sheet -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- SIDEBAR NAVIGATION-->
+        <aside class="sidebar glass-panel">
+            <a href="/" class="sidebar-logo">
+                <span class="logo-emoji">🍿</span> <span class="logo-text">MovieMind <span>AI</span></span>
+            </a>
+            
+            <ul class="sidebar-menu">
+                <li class="menu-item active" data-target="home-view">
+                    <a href="#home">
+                        <i class="fa-solid fa-house"></i>
+                        <span class="menu-item-text">Home</span>
+                    </a>
+                </li>
+                <li class="menu-item" data-target="recommend-view">
+                    <a href="#recommendations">
+                        <i class="fa-solid fa-film"></i>
+                        <span class="menu-item-text">Recommendations</span>
+                    </a>
+                </li>
+                <li class="menu-item" data-target="analytics-view">
+                    <a href="#analytics">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span class="menu-item-text">Analytics Panel</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <!-- Sidebar Graphic Banner -->
+            <div class="sidebar-banner">
+                <img src="assets/sidebar.jpg" alt="Cinema Art" class="sidebar-banner-img">
+            </div>
+            
+            <div class="sidebar-footer">
+                <p>&copy; 2026 MovieMind AI</p>
+            </div>
+        </aside>
+
+        <!-- ==================== 💻 MAIN WORKSPACE ==================== -->
+        <main class="main-content">
+            
+            <!-- Dashboard Top Header -->
+            <header class="dashboard-header">
+                <div>
+                    <h2 id="view-title" style="font-size: 1.8rem; font-weight: 800;">Welcome back!</h2>
+                    <p id="view-subtitle" style="color: var(--text-muted); font-size: 0.95rem; margin-top: 4px;">Explore your cinema minds.</p>
+                </div>
+                
+                <!-- Autocomplete Header Search -->
+                <div class="header-search">
+                    <input type="text" id="dashboard-search-input" class="header-search-input" placeholder="Search a movie..." autocomplete="off">
+                    <i class="fa-solid fa-magnifying-glass header-search-icon" id="dashboard-search-btn"></i>
+                    
+                    <!-- Dropdown autocomplete popup -->
+                    <div id="dashboard-autocomplete-list" class="autocomplete-suggestions" style="display: none;"></div>
+                </div>
+            </header>
+
+            <!-- ==================== 🏠 VIEW 1: HOME PANEL ==================== -->
+            <section id="home-view" class="dashboard-view-section active">
+                <div class="dashboard-hero glass-panel" style="background: linear-gradient(135deg, rgba(229, 9, 20, 0.25) 0%, rgba(24, 24, 27, 0.9) 100%);">
+                    <div class="hero-content">
+                        <h2 class="hero-title">Discover Your Next <span>Masterpiece</span></h2>
+                        <p class="hero-desc">MovieMind AI analyzes millions of cinematic tokens and user reviews using Cosine Similarity metrics to find movies matching your unique tastes.</p>
+                        <button class="btn-primary" onclick="focusSearch()">
+                            <i class="fa-solid fa-magnifying-glass"></i> Let's Find a Movie
+                        </button>
+                    </div>
+                    <div class="dashboard-hero-bg"></div>
+                </div>
+
+                <div style="margin-bottom: 24px;">
+                    <h3 style="font-size: 1.3rem; margin-bottom: 16px;">🔥 Recommended Starting Points</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 20px;">Don't know where to start? Search one of these highly acclaimed movies to see machine learning recommendations in action:</p>
+                    
+                    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                        <button class="btn-secondary" onclick="triggerQuickSearch('Avatar')">Avatar</button>
+                        <button class="btn-secondary" onclick="triggerQuickSearch('Inception')">Inception</button>
+                        <button class="btn-secondary" onclick="triggerQuickSearch('The Dark Knight')">The Dark Knight</button>
+                        <button class="btn-secondary" onclick="triggerQuickSearch('Interstellar')">Interstellar</button>
+                        <button class="btn-secondary" onclick="triggerQuickSearch('Iron Man')">Iron Man</button>
+                        <button class="btn-secondary" onclick="triggerQuickSearch('Titanic')">Titanic</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==== RECOMMENDATIONS GRID ==== -->
+            <section id="recommend-view" class="dashboard-view-section">
+                <!-- Search feedback display -->
+                <div id="search-meta-header" style="margin-bottom: 30px; display: none;">
+                    <h3 style="font-weight: 600; font-size: 1.4rem;">
+                        Recommendations based on <span id="search-query-highlight" style="color: var(--primary);">"Avatar"</span>
+                    </h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 4px;">Top similarity scores returned by our cosine similarity matrix</p>
+                </div>
+
+                <!-- Loader Indicator -->
+                <div id="recommendations-loader" class="glass-panel loader-panel" style="display: none;">
+                    <div class="spinner"></div>
+                    <p class="loader-text">MovieMind AI is computing feature weights & scraping posters...</p>
+                </div>
+
+                <!-- Empty Search State -->
+                <div id="recommendations-empty" class="empty-placeholder glass-panel">
+                    <i class="fa-solid fa-film"></i>
+                    <h3>No Movie Searched Yet</h3>
+                    <p>Enter a movie in the search bar above or choose a starting point to see intelligent recommendations.</p>
+                </div>
+
+                <!-- Cards Grid -->
+                <div id="recommendations-grid" class="movies-grid" style="display: none;">
+                    <!-- Movie Cards will be inserted here dynamically -->
+                </div>
+            </section>
+
+            <!-- ===== ANALYTICS ===== -->
+            <section id="analytics-view" class="dashboard-view-section">
+                
+                <!-- Analytics Loader -->
+                <div id="analytics-loader" class="glass-panel loader-panel">
+                    <div class="spinner"></div>
+                    <p class="loader-text">Aggregating database stats & mapping dimensions...</p>
+                </div>
+
+                <div id="analytics-content" style="display: none;">
+                    <!-- Top Summary Stats Row -->
+                    <div class="stats-grid">
+                        <div class="glass-panel" style="padding: 20px; text-align: center;">
+                            <p style="color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; font-weight: 600;">Total Cleaned Movies</p>
+                            <h2 style="font-size: 2.2rem; color: white; margin-top: 5px;">4,809</h2>
+                        </div>
+                        <div class="glass-panel" style="padding: 20px; text-align: center;">
+                            <p style="color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; font-weight: 600;">Recommendation Vectors</p>
+                            <h2 style="font-size: 2.2rem; color: var(--primary); margin-top: 5px;">5,000</h2>
+                        </div>
+                        <div class="glass-panel" style="padding: 20px; text-align: center;">
+                            <p style="color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; font-weight: 600;">Model Algorithm</p>
+                            <h2 style="font-size: 2.2rem; color: #4ade80; margin-top: 5px;">Cosine</h2>
+                        </div>
+                        <div class="glass-panel" style="padding: 20px; text-align: center;">
+                            <p style="color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; font-weight: 600;">Scraper Status</p>
+                            <h2 style="font-size: 2.2rem; color: var(--accent); margin-top: 5px;">Dynamic</h2>
+                        </div>
+                    </div>
+
+                    <!-- Chart JS Visualizations -->
+                    <div class="analytics-grid">
+                        <div class="chart-card glass-panel">
+                            <h3><i class="fa-solid fa-chart-bar" style="color: var(--primary);"></i> Genre Frequency (Top 10 Genres)</h3>
+                            <div class="chart-container">
+                                <canvas id="genreChart"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-card glass-panel">
+                            <h3><i class="fa-solid fa-star" style="color: var(--accent);"></i> Top Rated Masterpieces (Min. 1000 Votes)</h3>
+                            <div class="chart-container">
+                                <canvas id="ratingChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="chart-card glass-panel">
+                            <h3><i class="fa-solid fa-chart-line" style="color: #4ade80;"></i> Yearly Release Trends (1990 - 2016)</h3>
+                            <div class="chart-container">
+                                <canvas id="trendsChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="chart-card glass-panel">
+                            <h3><i class="fa-solid fa-circle-dot" style="color: #60a5fa;"></i> Movie Popularity vs Average Rating</h3>
+                            <div class="chart-container">
+                                <canvas id="scatterChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- ======MOVIE DETAIL MODAL ==== -->
+    <div id="movie-detail-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-btn" id="modal-close-btn">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <!-- Poster Side -->
+            <div class="modal-poster-side" id="modal-poster">
+                <!-- Poster Image injected dynamically -->
+            </div>
+            
+            <!-- Description Details Side -->
+            <div class="modal-details-side">
+                <h2 id="modal-title" style="font-family: 'Outfit', sans-serif; font-size: 2rem; font-weight: 800; margin-bottom: 8px;">Movie Title</h2>
+                
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                    <div class="card-rating" id="modal-rating" style="font-size: 1.1rem; font-weight: 600;">
+                        <i class="fa-solid fa-star"></i> 8.5
+                    </div>
+                    <div class="card-year" id="modal-year" style="font-size: 0.95rem; font-weight: 600;">2016</div>
+                    <div style="background: rgba(74, 222, 128, 0.15); color: #4ade80; font-weight: 700; padding: 4px 10px; border-radius: 20px; font-size: 0.85rem;" id="modal-similarity">
+                        92.5% Match
+                    </div>
+                </div>
+
+                <p class="modal-tagline" id="modal-tagline">"Some tagline representing the movie flavor"</p>
+                
+                <h4 style="margin-bottom: 8px; font-weight: 600; font-size: 1rem; color: white;">Overview</h4>
+                <p class="modal-overview" id="modal-overview">Full detailed movie overview goes here dynamically explaining the premise and key components of the plotline.</p>
+                
+                <!-- Expanded Metatable for Actors, Directors, Genres -->
+                <div class="modal-metadata-table">
+                    <div class="meta-field">
+                        <span class="meta-field-label">Director</span>
+                        <span class="meta-field-value" id="modal-director">James Cameron</span>
+                    </div>
+                    <div class="meta-field">
+                        <span class="meta-field-label">Genres</span>
+                        <span class="meta-field-value" id="modal-genres">Action, Sci-Fi, Adventure</span>
+                    </div>
+                    <div class="meta-field" style="grid-column: span 2;">
+                        <span class="meta-field-label">Starring Cast</span>
+                        <span class="meta-field-value" id="modal-cast">Sam Worthington, Zoe Saldana, Sigourney Weaver</span>
+                    </div>
+                    <div class="meta-field">
+                        <span class="meta-field-label">Popularity Weight</span>
+                        <span class="meta-field-value" id="modal-popularity">150.84</span>
+                    </div>
+                    <div class="meta-field">
+                        <span class="meta-field-label">Total Vote Count</span>
+                        <span class="meta-field-value" id="modal-votes">11,800 votes</span>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 30px;">
+                    <button class="btn-primary" id="modal-view-similar-btn">
+                        <i class="fa-solid fa-film"></i> View Similar recommendations
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

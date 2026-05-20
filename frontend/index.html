@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieMind AI — Movie Recommendation Platform</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main Style Sheet -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="landing-container">
+        <!-- Glow backdrops -->
+        <div class="decor-blob-1"></div>
+        
+        <div class="landing-card glass-panel">
+            <h1 class="landing-logo">
+                🍿 MovieMind <span>AI</span>
+            </h1>
+            <p class="landing-tagline">Movie Recommendations & Data Analytics</p>
+            
+            <!-- Dynamic Autocomplete Search Bar -->
+            <div class="search-wrapper-large">
+                <input type="text" id="landing-search-input" class="search-input-large" placeholder="What movie are you in the mood for? (e.g. Avatar, Inception, Iron Man)" autocomplete="off">
+                <i class="fa-solid fa-magnifying-glass search-icon-large"></i>
+                
+                <!-- Autocomplete Dropdown List -->
+                <div id="landing-autocomplete-list" class="autocomplete-suggestions" style="display: none;"></div>
+            </div>
+            
+            <button id="landing-search-btn" class="btn-primary search-btn-large">
+                <span>Discover Recommendations</span> <i class="fa-solid fa-arrow-right"></i>
+            </button>
+            
+            <div style="margin-top: 24px;">
+                <a href="/dashboard" class="btn-secondary" style="display: inline-flex;">
+                    <i class="fa-solid fa-chart-line"></i> Open Analytics Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Frontend scripts -->
+    <script src="js/api.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const searchInput = document.getElementById("landing-search-input");
+            const suggestionsList = document.getElementById("landing-autocomplete-list");
+            const searchBtn = document.getElementById("landing-search-btn");
+            
+            let allMovies = [];
+            
+            // 1. Fetch autocomplete movies list on page load
+            try {
+                allMovies = await MovieMindAPI.getMoviesList();
+            } catch (err) {
+                console.error("Failed to load movie autocomplete list:", err);
+            }
+            
+            // 2. Handle search input changes (autocomplete dropdown)
+            searchInput.addEventListener("input", () => {
+                const val = searchInput.value.trim().toLowerCase();
+                suggestionsList.innerHTML = "";
+                
+                if (!val) {
+                    suggestionsList.style.display = "none";
+                    return;
+                }
+                
+                // Filter matching movies
+                const matches = allMovies
+                    .filter(m => m.toLowerCase().includes(val))
+                    .slice(0, 8); // Top 8 matches
+                    
+                if (matches.length > 0) {
+                    matches.forEach(match => {
+                        const div = document.createElement("div");
+                        div.className = "suggestion-item";
+                        div.textContent = match;
+                        div.addEventListener("click", () => {
+                            searchInput.value = match;
+                            suggestionsList.style.display = "none";
+                            // Redirect straight to dashboard with query
+                            navigateToDashboard(match);
+                        });
+                        suggestionsList.appendChild(div);
+                    });
+                    suggestionsList.style.display = "block";
+                } else {
+                    suggestionsList.style.display = "none";
+                }
+            });
+            
+            // Close suggestions on outside click
+            document.addEventListener("click", (e) => {
+                if (e.target !== searchInput && e.target !== suggestionsList) {
+                    suggestionsList.style.display = "none";
+                }
+            });
+            
+            // 3. Search triggers
+            const performSearch = () => {
+                const query = searchInput.value.trim();
+                if (query) {
+                    navigateToDashboard(query);
+                }
+            };
+            
+            searchBtn.addEventListener("click", performSearch);
+            searchInput.addEventListener("keypress", (e) => {
+                if (e.key === "Enter") {
+                    performSearch();
+                }
+            });
+            
+            function navigateToDashboard(movieName) {
+                // Pass movie query via URL parameter
+                window.location.href = `/dashboard?search=${encodeURIComponent(movieName)}`;
+            }
+        });
+    </script>
+</body>
+</html>
