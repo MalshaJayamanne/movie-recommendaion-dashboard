@@ -6,19 +6,19 @@ MovieMind AI is a full-stack movie recommendation and analytics dashboard. Utili
 
 ## 🚀 Key Features
 
-*   **🧠 Cosine Similarity Recommendation Engine**: Machine learning model analyzing movie features (genres, keywords, cast, crew, and overview) with Porter Stemming and Count Vectorization to recommend similar movies.
-*   **🔍 High-Fidelity Autocomplete Search**: Real-time autocomplete suggestions on the client-side as you type, making movie searches seamless.
-*   **🖼️ Live Poster Scraper & Dynamic Cache**: Key-free web scraper fetching high-resolution movie posters directly from TMDB's public Open Graph tags with localized dynamic caching for fast loading.
-*   **📊 Rich Analytics Dashboard**: Beautiful dark-theme interactive visualizations built with Chart.js:
+*   **Cosine Similarity Recommendation Engine**: Machine learning model analyzing movie features (genres, keywords, cast, crew, and overview) with Porter Stemming and Count Vectorization to recommend similar movies.
+*   **High-Fidelity Autocomplete Search**: Real-time autocomplete suggestions on the client-side as you type, making movie searches seamless.
+*   **Live Poster Scraper & Dynamic Cache**: Key-free web scraper fetching high-resolution movie posters directly from TMDB's public Open Graph tags with localized dynamic caching for fast loading.
+*   **Rich Analytics Dashboard**: Beautiful dark-theme interactive visualizations built with Chart.js:
     *   *Genre Distribution* (Horizontal Bar Chart)
     *   *Top Rated Masterpieces* (Polar Area Chart)
     *   *Popularity vs Rating* (Scatter Chart)
     *   *Yearly Release Trends* (Spline Area Chart)
-*   **📱 Cinematic Dark UI**: Responsive, glassmorphic dark-theme UI with card scale-up animations, custom scrollbars, and detailed movie modal overlays.
+*   **Cinematic Dark UI**: Responsive, glassmorphic dark-theme UI with card scale-up animations, custom scrollbars, and detailed movie modal overlays.
 
 ---
 
-## 🏗️ System Architecture
+## System Architecture
 
 ```mermaid
 graph TD
@@ -70,7 +70,7 @@ movie-recommendation-dashboard/
 
 ---
 
-## ⚙️ Quick Start Guide
+## Quick Start Guide
 
 ### 1. Set Up Virtual Environment
 
@@ -104,7 +104,7 @@ Open your browser and navigate to **`http://127.0.0.1:5000`** to experience **Mo
 
 ---
 
-## 🎨 Design Aesthetics & Interface
+## Design & Interface
 
 *   **Dark Mode Obsidian Theme**: Deep charcoal backgrounds with glassmorphism panels.
 *   **Vibrant Color Highlights**: Cinematic Netflix-red elements, glow effects, and smooth cards transition.
