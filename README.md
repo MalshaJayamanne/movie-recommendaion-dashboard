@@ -1,4 +1,4 @@
-# 🎬 MovieMind AI — Movie Recommendation & Analytics Platform
+# 🎬 MovieMind AI - Movie Recommendation & Analytics Platform
 
 MovieMind AI is a full-stack movie recommendation and analytics dashboard. Utilizing a custom **Machine Learning Cosine Similarity** engine trained on the TMDB 5000 movie dataset, it provides instant, highly relevant movie recommendations alongside real-time poster scraping and comprehensive data analytics.
 
