@@ -72,31 +72,82 @@
                 </div>
             </header>
 
-            <!-- ==================== 🏠 VIEW 1: HOME PANEL ==================== -->
+            <!-- == HOME PANE === -->
             <section id="home-view" class="dashboard-view-section active">
-                <div class="dashboard-hero glass-panel" style="background: linear-gradient(135deg, rgba(229, 9, 20, 0.25) 0%, rgba(24, 24, 27, 0.9) 100%);">
-                    <div class="hero-content">
-                        <h2 class="hero-title">Discover Your Next <span>Masterpiece</span></h2>
-                        <p class="hero-desc">MovieMind AI analyzes millions of cinematic tokens and user reviews using Cosine Similarity metrics to find movies matching your unique tastes.</p>
-                        <button class="btn-primary" onclick="focusSearch()">
-                            <i class="fa-solid fa-magnifying-glass"></i> Let's Find a Movie
-                        </button>
-                    </div>
-                    <div class="dashboard-hero-bg"></div>
-                </div>
-
-                <div style="margin-bottom: 24px;">
-                    <h3 style="font-size: 1.3rem; margin-bottom: 16px;">🔥 Recommended Starting Points</h3>
-                    <p style="color: var(--text-muted); margin-bottom: 20px;">Don't know where to start? Search one of these highly acclaimed movies to see machine learning recommendations in action:</p>
+                <div class="dashboard-hero glass-panel">
+                    <!-- Dynamic background cinematic ambient glow effects -->
+                    <div class="hero-glow-1"></div>
+                    <div class="hero-glow-2"></div>
                     
-                    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-                        <button class="btn-secondary" onclick="triggerQuickSearch('Avatar')">Avatar</button>
-                        <button class="btn-secondary" onclick="triggerQuickSearch('Inception')">Inception</button>
-                        <button class="btn-secondary" onclick="triggerQuickSearch('The Dark Knight')">The Dark Knight</button>
-                        <button class="btn-secondary" onclick="triggerQuickSearch('Interstellar')">Interstellar</button>
-                        <button class="btn-secondary" onclick="triggerQuickSearch('Iron Man')">Iron Man</button>
-                        <button class="btn-secondary" onclick="triggerQuickSearch('Titanic')">Titanic</button>
+                    <div class="hero-inner">
+                        <div class="hero-content">
+                            <span class="hero-badge"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Recommendation Engine</span>
+                            <h2 class="hero-title">Discover Your Next <span>Masterpiece</span></h2>
+                            <p class="hero-desc">MovieMind AI analyzes millions of high-dimensional cinematic tokens using Cosine Similarity metrics to find movies matching your unique aesthetic and thematic tastes.</p>
+                            
+                            <div class="hero-actions">
+                                <button class="btn-primary hero-cta-btn" onclick="focusSearch()">
+                                    <span>Let's Find a Movie</span> <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                            </div>
+                            
+                            <!-- Integrated Interactive Quick Tags -->
+                            <div class="hero-quick-tags">
+                                <span class="tags-label">Quick Search Masterpieces:</span>
+                                <div class="tags-group">
+                                    <button class="hero-tag" onclick="triggerQuickSearch('The Dark Knight')">Action</button>
+                                    <button class="hero-tag" onclick="triggerQuickSearch('Interstellar')">Sci-Fi</button>
+                                    <button class="hero-tag" onclick="triggerQuickSearch('Inception')">Thriller</button>
+                                    <button class="hero-tag" onclick="triggerQuickSearch('Avatar')">Fantasy</button>
+                                    <button class="hero-tag" onclick="triggerQuickSearch('Titanic')">Romance</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Floating Glassmorphic Features Visual Side -->
+                        <div class="hero-visual">
+                            <div class="visual-card glass-panel floating-1">
+                                <div class="visual-card-icon" style="background: rgba(229, 9, 20, 0.15); color: var(--primary);">
+                                    <i class="fa-solid fa-bolt"></i>
+                                </div>
+                                <div class="visual-card-text">
+                                    <h4>Cosine Engine</h4>
+                                    <p>High-Precision Vectors</p>
+                                </div>
+                            </div>
+                            
+                            <div class="visual-card glass-panel floating-2">
+                                <div class="visual-card-icon" style="background: rgba(245, 158, 11, 0.15); color: var(--accent);">
+                                    <i class="fa-solid fa-film"></i>
+                                </div>
+                                <div class="visual-card-text">
+                                    <h4>4,800+ Movies</h4>
+                                    <p>Deep TMDB Catalog</p>
+                                </div>
+                            </div>
+                            
+                            <div class="visual-card glass-panel floating-3">
+                                <div class="visual-card-icon" style="background: rgba(74, 222, 128, 0.15); color: #4ade80;">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                </div>
+                                <div class="visual-card-text">
+                                    <h4>Analytics Suite</h4>
+                                    <p>4 Interactive Charts</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                </div>
+                
+                <!-- Quick Navigation Teaser Card -->
+                <div class="home-analytics-teaser glass-panel">
+                    <div class="teaser-text">
+                        <h3><i class="fa-solid fa-chart-line" style="color: var(--accent);"></i> Explore Database Insights</h3>
+                        <p>Visualize trends, genre distribution, popularity metrics, and ratings across the entire database.</p>
+                    </div>
+                    <button class="btn-secondary" onclick="switchView('analytics-view')">
+                        <span>Open Analytics Panel</span> <i class="fa-solid fa-arrow-right"></i>
+                    </button>
                 </div>
             </section>
 

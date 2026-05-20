@@ -11,7 +11,6 @@ import pickle
 
 app = Flask(__name__)
 CORS(app)
-app = Flask(__name__)
 
 # Initialize recommendation engine
 recommender = MovieRecommender()

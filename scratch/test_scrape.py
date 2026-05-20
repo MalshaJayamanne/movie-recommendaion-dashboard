@@ -1,33 +1,40 @@
 import requests
 import re
 
-movie_id = 19995 # Avatar
+movie_id = 19995  # Avatar
 url = f"https://www.themoviedb.org/movie/{movie_id}"
 headers = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.5",
+    "Connection": "keep-alive",
+    "Upgrade-Insecure-Requests": "1"
 }
 
-print(f"--- Fetching TMDB Movie Page for ID {movie_id} ---")
 try:
+    print(f"Fetching {url}...")
     r = requests.get(url, headers=headers, timeout=10)
-    print("Status Code:", r.status_code)
-    if r.status_code == 200:
-        html = r.text
-        # Look for og:image
-        match = re.search(r'<meta[^>]*property=["\']og:image["\'][^>]*content=["\']([^"\']+)["\']', html)
-        if match:
-            print("Found og:image using pattern 1:", match.group(1))
+    print(f"Status Code: {r.status_code}")
+    print(f"Headers: {dict(r.headers)}")
+    
+    html = r.text
+    # Search for og:image
+    match = re.search(r'<meta[^>]*property=["\']og:image["\'][^>]*content=["\']([^"\']+)["\']', html)
+    if match:
+        print("Found matches:")
+        print(match.group(1))
+    else:
+        print("No match 1 found.")
+        match2 = re.search(r'content=["\']([^"\']+)["\'][^>]*property=["\']og:image["\']', html)
+        if match2:
+            print("Found match 2:")
+            print(match2.group(1))
         else:
-            # Try searching for other image tags
-            match2 = re.search(r'content=["\']([^"\']+)["\'][^>]*property=["\']og:image["\']', html)
-            if match2:
-                print("Found og:image using pattern 2:", match2.group(1))
-            else:
-                # Find any image with /t/p/
-                images = re.findall(r'https://image.tmdb.org/t/p/[^"\']+', html)
-                if images:
-                    print("Found images with TMDB path:", images[:3])
-                else:
-                    print("No TMDB images found in HTML.")
+            print("No match 2 found.")
+            
+    # Check if there is a meta image tag of any form
+    meta_images = re.findall(r'<meta[^>]*content=["\']([^"\']+\.jpg[^"\']*)["\']', html)
+    print("All found .jpg meta content:", meta_images[:5])
+    
 except Exception as e:
-    print("Error:", e)
+    print(f"Error occurred: {e}")

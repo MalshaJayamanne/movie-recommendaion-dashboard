@@ -726,46 +726,286 @@ h1, h2, h3, h4, h5, h6, .brand-title {
     display: block;
 }
 
-/* Banner Hero for Dashboard Home */
+/* Upgraded Premium Banner Hero for Dashboard Home */
 .dashboard-hero {
-    padding: 45px;
-    border-radius: 20px;
-    margin-bottom: 40px;
+    padding: 50px 45px;
+    border-radius: 24px;
+    margin-bottom: 35px;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(135deg, rgba(229, 9, 20, 0.18) 0%, rgba(99, 102, 241, 0.06) 50%, rgba(24, 24, 27, 0.95) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    transition: var(--transition-smooth);
 }
 
-.hero-content {
-    max-width: 480px;
+.dashboard-hero:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 25px 50px rgba(229, 9, 20, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border-color: rgba(229, 9, 20, 0.25);
+}
+
+/* Ambient glow blobs inside hero */
+.hero-glow-1 {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(229, 9, 20, 0.2) 0%, rgba(229, 9, 20, 0) 70%);
+    top: -50px;
+    left: -50px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.hero-glow-2 {
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, rgba(99, 102, 241, 0) 70%);
+    bottom: -100px;
+    right: 20%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.hero-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
     position: relative;
     z-index: 5;
 }
 
+.hero-content {
+    max-width: 520px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.hero-badge {
+    background: rgba(229, 9, 20, 0.12);
+    color: var(--primary);
+    border: 1px solid rgba(229, 9, 20, 0.25);
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(229, 9, 20, 0.15);
+}
+
 .hero-title {
-    font-size: 2.2rem;
+    font-size: 2.8rem;
     font-weight: 800;
-    margin-bottom: 12px;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+    margin-bottom: 16px;
+    color: white;
 }
 
 .hero-title span {
-    color: var(--primary);
+    background: linear-gradient(135deg, #fff 30%, #e50914 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .hero-desc {
     color: var(--text-muted);
-    line-height: 1.5;
-    margin-bottom: 25px;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 28px;
+    font-weight: 400;
 }
 
-.dashboard-hero-bg {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 60%;
-    height: 100%;
-    background: linear-gradient(90deg, #18181b 0%, rgba(24, 24, 27, 0) 100%);
-    z-index: 1;
+.hero-actions {
+    margin-bottom: 30px;
+}
+
+.hero-cta-btn {
+    padding: 15px 30px;
+    font-size: 1.05rem;
+    background: linear-gradient(135deg, var(--primary) 0%, #b80710 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 24px rgba(229, 9, 20, 0.3);
+}
+
+.hero-cta-btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(229, 9, 20, 0.45);
+}
+
+/* Quick genre tags inside hero */
+.hero-quick-tags {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tags-label {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tags-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.hero-tag {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-light);
+    color: var(--text-main);
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.hero-tag:hover {
+    background: rgba(229, 9, 20, 0.12);
+    border-color: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(229, 9, 20, 0.15);
+}
+
+.tag-emoji {
+    font-size: 1rem;
+    transition: var(--transition-smooth);
+}
+
+.hero-tag:hover .tag-emoji {
+    transform: scale(1.2);
+}
+
+/* Visual floaters side */
+.hero-visual {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 250px;
+}
+
+.visual-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    transition: var(--transition-smooth);
+    cursor: default;
+}
+
+.visual-card:hover {
+    transform: translateX(-5px);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.visual-card-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    flex-shrink: 0;
+}
+
+.visual-card-text h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: white;
+}
+
+.visual-card-text p {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* Gentle float animations */
+.floating-1 {
+    animation: float1 4s ease-in-out infinite alternate;
+}
+
+.floating-2 {
+    animation: float2 5s ease-in-out infinite alternate;
+}
+
+.floating-3 {
+    animation: float3 4.5s ease-in-out infinite alternate;
+}
+
+@keyframes float1 {
+    0% { transform: translateY(0px) rotate(0deg); }
+    100% { transform: translateY(-8px) rotate(1deg); }
+}
+
+@keyframes float2 {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-10px); }
+}
+
+@keyframes float3 {
+    0% { transform: translateY(0px) rotate(0deg); }
+    100% { transform: translateY(-6px) rotate(-1deg); }
+}
+
+/* Teaser card styling */
+.home-analytics-teaser {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 30px;
+    border-radius: 18px;
+    margin-bottom: 20px;
+    gap: 30px;
+    background: linear-gradient(90deg, rgba(24, 24, 27, 0.8) 0%, rgba(39, 39, 42, 0.4) 100%);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: var(--transition-smooth);
+}
+
+.home-analytics-teaser:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+}
+
+.teaser-text h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.teaser-text p {
+    color: var(--text-muted);
+    font-size: 0.85rem;
 }
 
 /* Query Loader panel styling */
@@ -822,6 +1062,23 @@ h1, h2, h3, h4, h5, h6, .brand-title {
 
 /* RESPONSIVE */
 @media (max-width: 992px) {
+    .hero-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 35px;
+    }
+    
+    .hero-visual {
+        flex-direction: row;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+    
+    .visual-card {
+        flex: 1;
+        min-width: 200px;
+    }
+
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -846,6 +1103,25 @@ h1, h2, h3, h4, h5, h6, .brand-title {
 }
 
 @media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.2rem;
+    }
+    
+    .hero-desc {
+        font-size: 0.95rem;
+    }
+    
+    .home-analytics-teaser {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .home-analytics-teaser button {
+        width: 100%;
+        justify-content: center;
+    }
+
     .sidebar {
         width: var(--sidebar-collapsed-width);
         padding: 20px 10px;
@@ -900,14 +1176,13 @@ h1, h2, h3, h4, h5, h6, .brand-title {
         height: 260px;
     }
     .dashboard-hero {
-        padding: 25px 20px;
-        text-align: center;
+        padding: 30px 20px;
     }
     .hero-content {
         max-width: 100%;
     }
     .hero-title {
-        font-size: 1.6rem;
+        font-size: 1.8rem;
     }
     .hero-desc {
         font-size: 0.85rem;

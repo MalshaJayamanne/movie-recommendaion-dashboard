@@ -1,7 +1,7 @@
 
 const MovieMindAPI = {
-    // Base URL is local relative
-    BASE_URL: "",
+    // Dynamically target Flask backend if served cross-origin (e.g. file:// or Live Server)
+    BASE_URL: window.location.port === "5000" ? "" : "http://127.0.0.1:5000",
 
     /**
      * Fetches the complete list of available movie titles for autocomplete.
