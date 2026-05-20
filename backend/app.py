@@ -4,7 +4,13 @@ import json
 import requests
 from flask import Flask, request, jsonify, send_from_directory
 from recommendation import MovieRecommender
+from flask_cors import CORS
+import pandas as pd
+import pickle
 
+
+app = Flask(__name__)
+CORS(app)
 app = Flask(__name__)
 
 # Initialize recommendation engine
