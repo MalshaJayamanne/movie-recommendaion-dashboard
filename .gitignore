@@ -1,6 +1,7 @@
 venv/
 .venv/
 env/
+data/archive.zip
 
 __pycache__/
 *.py[cod]
